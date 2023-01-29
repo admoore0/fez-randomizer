@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 
 using FezGame;
 using FezGame.Components;
+using FezGame.Components.Actions;
 using FezGame.Structure;
 using FezGame.Services;
 using FezEngine.Effects;
@@ -33,13 +34,18 @@ namespace Randomizer
         }
 
         private static IDetour LevelChangeHook;
+        private static IDetour FarAwayHook;
 
         private static Type LevelManagerType;
+        private static Type EnterDoorType;
 
         private List<Entrance> Entrances = new List<Entrance>();
 
         [ServiceDependency]
         public IGameLevelManager LevelManager { private get; set; }
+
+        [ServiceDependency]
+        public IGameStateManager StateManager { private get; set; }
 
         [ServiceDependency]
         public IPlayerManager PlayerManager { private get; set; }
@@ -61,10 +67,21 @@ namespace Randomizer
             }
 
             LevelManagerType = Assembly.GetAssembly(typeof(Fez)).GetType("FezGame.Services.GameLevelManager");
+            EnterDoorType = Assembly.GetAssembly(typeof(Fez)).GetType("FezGame.Components.Actions.EnterDoor");
 
             LevelChangeHook = new Hook(
                 LevelManagerType.GetMethod("ChangeLevel"),
                 new Action<Action<object, string>, object, string>((orig, self, level_name) => ChangeLevelOverride(orig, self, level_name)
+            ));
+
+            FarAwayHook = new Hook(
+                EnterDoorType.GetMethod("Begin", BindingFlags.NonPublic | BindingFlags.Instance),
+                new Action<Action<object>, object>((orig, self) =>
+                {
+                    LevelManager.DestinationIsFarAway = false;
+                    StateManager.FarawaySettings.Reset();
+                    orig(self);
+                }
             ));
         }
 
@@ -112,9 +129,9 @@ namespace Randomizer
                 Entrance entrance = matchingEntraces[0];
 
                 manager.DestinationVolumeId = entrance.DestVolumeId;
-                manager.DestinationIsFarAway = false;
                 orig(self, entrance.LevelToNew);
-                CameraManager.AlterTransition(StringToView(entrance.DestViewpoint));
+                
+                //CameraManager.AlterTransition(FezEngine.Viewpoint.Front);
             }
             else
             {
