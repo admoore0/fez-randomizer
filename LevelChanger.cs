@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 
@@ -16,9 +20,23 @@ namespace Randomizer
 {
     public class LevelChanger : GameComponent
     {
+        public static readonly string ConfigFile = "Mods/Randomizer/config.txt";
+
+        [Serializable]
+        public struct Entrance
+        {
+            public string LevelFrom; // The level this entrance is connecting from.
+            public string LevelToOrig; // The level this entrance would usually go to.
+            public string LevelToNew; // The level this entrance goes to after randomization.
+            public int DestVolumeId; // The destination volume ID of the new level.
+            public string DestViewpoint; // The viewpoint to use when spawning into the new level.
+        }
+
         private static IDetour LevelChangeHook;
 
         private static Type LevelManagerType;
+
+        private List<Entrance> Entrances = new List<Entrance>();
 
         [ServiceDependency]
         public IGameLevelManager LevelManager { private get; set; }
@@ -35,24 +53,73 @@ namespace Randomizer
         {
             Fez = (Fez)game;
 
+            ParseInputFile();
+
+            foreach(var entrance in Entrances)
+            {
+                Console.WriteLine(entrance.LevelFrom);
+            }
+
             LevelManagerType = Assembly.GetAssembly(typeof(Fez)).GetType("FezGame.Services.GameLevelManager");
 
             LevelChangeHook = new Hook(
                 LevelManagerType.GetMethod("ChangeLevel"),
-                new Action<Action<object, string>, object, string>((orig, self, level_name) => {
-                    if (level_name == "GOMEZ_HOUSE")
-                    {
-                        var manager = (GameLevelManager)self;
-                        manager.DestinationVolumeId = 3;
-                        orig(self, "WATERFALL");
-                        CameraManager.AlterTransition(FezEngine.Viewpoint.Back);
-                    }
-                    else
-                    {
-                        orig(self, level_name);
-                    }
-                }
+                new Action<Action<object, string>, object, string>((orig, self, level_name) => ChangeLevelOverride(orig, self, level_name)
             ));
+        }
+
+        public void ParseInputFile()
+        {
+            var reader = File.OpenText(ConfigFile);
+
+            while(!reader.EndOfStream)
+            {
+                Entrance entrance;
+                entrance.LevelFrom = reader.ReadLine();
+                entrance.LevelToOrig = reader.ReadLine();
+                entrance.LevelToNew = reader.ReadLine();
+                entrance.DestVolumeId = int.Parse(reader.ReadLine());
+                entrance.DestViewpoint = reader.ReadLine();
+                Entrances.Add(entrance);
+                reader.ReadLine();
+            }
+        }
+
+        public static FezEngine.Viewpoint StringToView(string view)
+        {
+            switch(view.ToUpper())
+            {
+                case "BACK":
+                    return FezEngine.Viewpoint.Back;
+                case "FRONT":
+                    return FezEngine.Viewpoint.Front;
+                case "LEFT":
+                    return FezEngine.Viewpoint.Left;
+                case "RIGHT":
+                    return FezEngine.Viewpoint.Right;
+                default:
+                    return FezEngine.Viewpoint.Front;
+            }
+        }
+
+        public void ChangeLevelOverride(Action<object, string> orig, object self, string level_name)
+        {
+            var manager = (GameLevelManager)self;
+            string prevLevel = manager.Name;
+            List<Entrance> matchingEntraces = Entrances.Where(entrance => entrance.LevelFrom == prevLevel && entrance.LevelToOrig == level_name).ToList();
+            if (matchingEntraces.Count > 0)
+            {
+                Entrance entrance = matchingEntraces[0];
+
+                manager.DestinationVolumeId = entrance.DestVolumeId;
+                manager.DestinationIsFarAway = false;
+                orig(self, entrance.LevelToNew);
+                CameraManager.AlterTransition(StringToView(entrance.DestViewpoint));
+            }
+            else
+            {
+                orig(self, level_name);
+            }
         }
 
         protected override void Dispose(bool disposing)
