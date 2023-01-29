@@ -1,0 +1,3 @@
+"""
+Randomizer for FEZ.
+"""
