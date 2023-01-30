@@ -61,11 +61,6 @@ namespace Randomizer
 
             ParseInputFile();
 
-            foreach(var entrance in Entrances)
-            {
-                Console.WriteLine(entrance.LevelFrom);
-            }
-
             LevelManagerType = Assembly.GetAssembly(typeof(Fez)).GetType("FezGame.Services.GameLevelManager");
             EnterDoorType = Assembly.GetAssembly(typeof(Fez)).GetType("FezGame.Components.Actions.EnterDoor");
 
@@ -123,15 +118,15 @@ namespace Randomizer
         {
             var manager = (GameLevelManager)self;
             string prevLevel = manager.Name;
-            List<Entrance> matchingEntraces = Entrances.Where(entrance => entrance.LevelFrom == prevLevel && entrance.LevelToOrig == level_name).ToList();
-            if (matchingEntraces.Count > 0)
+            List<Entrance> matchingEntrances = Entrances.Where(entrance => entrance.LevelFrom == prevLevel && entrance.LevelToOrig == level_name).ToList();
+            if (matchingEntrances.Count > 0)
             {
-                Entrance entrance = matchingEntraces[0];
+                Entrance entrance = matchingEntrances[0];
 
                 manager.DestinationVolumeId = entrance.DestVolumeId;
                 orig(self, entrance.LevelToNew);
                 
-                //CameraManager.AlterTransition(FezEngine.Viewpoint.Front);
+                CameraManager.AlterTransition(StringToView(entrance.DestViewpoint));
             }
             else
             {

@@ -1,0 +1,209 @@
+[
+    {
+        "name": "GOMEZ_HOUSE",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "GOMEZ_HOUSE",
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    },
+    {
+        "name": "VILLAGEVILLE_3D",
+        "collectibles": {
+            "bits": 4,
+            "keys": 1
+        },
+        "entrances": [
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "GEEZER_HOUSE"
+            },
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "SCHOOL"
+            },
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 3,
+                "viewpoint": "FRONT",
+                "original_destination": "KITCHEN"
+            },
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 4,
+                "viewpoint": "FRONT",
+                "original_destination": "GOMEZ_HOUSE"
+            },
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 6,
+                "viewpoint": "FRONT",
+                "original_destination": "BOILEROOM",
+                "locked": true
+            },
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 10,
+                "viewpoint": "FRONT",
+                "original_destination": "PARLOR"
+            },
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 12,
+                "viewpoint": "FRONT",
+                "original_destination": "BIG_TOWER",
+                "cubes_required": 1
+            },
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 13,
+                "viewpoint": "RIGHT",
+                "original_destination": "ABANDONED_A"
+            },
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 14,
+                "viewpoint": "BACK",
+                "original_destination": "ABANDONED_B"
+            },
+            {
+                "level": "VILLAGEVILLE_3D",
+                "volume_id": 15,
+                "viewpoint": "LEFT",
+                "original_destination": "ABANDONED_C"
+            }
+        ]
+    },
+    {
+        "name": "PARLOR",
+        "collectibles": {
+            "anti_cubes": 1,
+            "keys": 1
+        },
+        "entrances": [
+            {
+                "level": "PARLOR",
+                "volume_id": 1,
+                "viewpoint":"RIGHT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    },
+    {
+        "name": "BOILEROOM",
+        "collectibles": {
+            "anti_cubes": 1,
+            "other": "Labyrinth Map 2"
+        },
+        "entrances": [
+            {
+                "level": "BOILEROOM",
+                "volume_id": 1,
+                "viewpoint":"RIGHT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    },
+    {
+        "name": "GEEZER_HOUSE",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "GEEZER_HOUSE",
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    },
+    {
+        "name": "SCHOOL",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "SCHOOL",
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    },
+    {
+        "name": "KITCHEN",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "KITCHEN",
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    },
+    {
+        "name": "ABANDONED_A",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "ABANDONED_A",
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    },
+    {
+        "name": "ABANDONED_B",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "ABANDONED_B",
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    },
+    {
+        "name": "ABANDONED_C",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "ABANDONED_C",
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    },
+    {
+        "name": "BIG_TOWER",
+        "collectibles": {
+            "bits": 8
+        },
+        "entrances": [
+            {
+                "level": "BIG_TOWER",
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "VILLAGEVILLE_3D"
+            }
+        ]
+    }
+]
