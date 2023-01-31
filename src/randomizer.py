@@ -23,35 +23,50 @@ def main():
 
     # Start the tree at GOMEZ_HOUSE (after the 2D section).
     tree = next(filter(lambda x: x.name == "GOMEZ_HOUSE", levels))
-    levels.remove(tree)
 
     output_str = ""
 
     while len(levels) > 0:
+        total_unused_entrances = tree.total_unused_entrances()
         from_level = tree.next_leaf()
-        if not from_level:
-            break
-        from_entrance = random.choice(from_level.unused_entrances)
-        from_level.unused_entrances.remove(from_entrance)
-        if not from_entrance:
-            break
-        if tree.total_unused_entrances() == 0 and len(levels) > 2:
-            # We must connect a level that has more than one entrance, otherwise the tree is dead.
-            valid_levels = [level for level in levels if len(level.unused_entrances) >= 2 and level != from_level]
+        from_entrance = from_level.connect_from_random()
+        if total_unused_entrances == 1 and len(levels) > 2:
+            # We must connect a level that has more than one entrance, otherwise the tree is dead. In addition, we
+            # can't connect one way levels, as they require even more unused entrances.
+            def is_valid(level: Level) -> bool:
+                return (len(level.unused_entrances) >= 2
+                        and level != from_level
+                        and not level.one_way)
+            
+            valid_levels = [level for level in levels if is_valid(level)]
             level = random.choice(valid_levels)
             valid_entrances = [entrance for entrance in level.unused_entrances if level.num_exits(entrance) >= 2]
             entrance = random.choice(valid_entrances)
+            hit = 1
+        elif total_unused_entrances < 3:
+            # We have an open node that we can connect a one-way level to.
+            def is_valid(level: Level) -> bool:
+                return level != from_level and not level.one_way
+            hit = 2
         else:
-            valid_levels = list(filter(lambda x: x != from_level, levels))
-            level = random.choice(valid_levels)
-            entrance = random.choice(level.unused_entrances)
-        # Remove the entrance we used from the unused entrances list.
-        level.unused_entrances.remove(entrance)
+            # Do not let levels connect to themselves unless it is the only option.
+            def is_valid(level: Level) -> bool:
+                if len(levels) == 1:
+                    return True
+                else:
+                    return level != from_level
+            hit = 3
+
+        valid_levels = list(filter(is_valid, levels))
+        to_level = random.choice(valid_levels)
+        to_entrance = to_level.connect_to_random()
         from_level.connected_levels.append(level)
-        if len(level.unused_entrances) == 0:
-            # There are no more entrances for this level. Remove it from the list.
-            levels.remove(level)
-        output_str += str(Transition(from_entrance, entrance))
+
+        if len(from_level.unused_entrances) == 0:
+            levels.remove(from_level)
+        if to_level != from_level and len(to_level.unused_entrances) == 0:
+            levels.remove(to_level)
+        output_str += str(Transition(from_entrance, to_entrance))
     
     with open("config.txt", "w", encoding="UTF-8") as f:
         f.write(output_str)

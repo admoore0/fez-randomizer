@@ -24,18 +24,49 @@ class Level:
     Class for storing information about levels.
     """
 
-    def __init__(self, name: str, collectibles: CollectibleInfo, entrances: List[Entrance]) -> None:
+    def __init__(self, name: str, collectibles: CollectibleInfo, entrances: List[Entrance],
+                 one_way: bool = False) -> None:
         self.name = name
         self.collectibles = collectibles
         self.entrances = entrances
         self.unused_entrances = entrances
         self.unreachable_entrances: List[Entrance] = []
         self.connected_levels: List[Level] = []
+        self.one_way = one_way
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Level):
             raise NotImplementedError
         return other.name == self.name
+    
+    def connect_from_random(self) -> Entrance:
+        """
+        Start a connection from a random choice of one of this level's entrances. This also removes this entrance from
+        the level's unused entrance list.
+
+        :return: The entrance selected.
+        """
+        if not self.unused_entrances:
+            raise ValueError("Level has no unused entrances.")
+        entrance = random.choice(self.unused_entrances)
+        self.unused_entrances.remove(entrance)
+        return entrance
+
+    def connect_to_random(self) -> Entrance:
+        """
+        End a connection at a 'random' choice of this level's nodes. For some rooms where travel is only permitted one
+        way, we must choose the 'starting' entrance for that level.
+
+        :return: The entrance selected.
+        """
+        if not self.unused_entrances:
+            raise ValueError("Level has no unused entrances.")
+        if self.name in ["OBSERVATORY", "LAVA_XXX", "WELL_B/SEWER_START"]:
+            entrance = self.unused_entrances[0]
+        else:
+            entrance = random.choice(self.unused_entrances)
+        self.unused_entrances.remove(entrance)
+        return entrance
 
     def num_exits(self, entrance: Entrance) -> int:
         if entrance not in self.unused_entrances:
@@ -73,10 +104,11 @@ class Level:
         return Level.next_leaf_bfs(next_layer)
 
 
-    def total_unused_entrances(self) -> int:
+    def total_unused_entrances(self, visited: List['Level'] = []) -> int:
         output = len(self.unused_entrances)
         for level in self.connected_levels:
-            output += level.total_unused_entrances()
+            if level not in visited:
+                output += level.total_unused_entrances(visited + [self])
         return output
 
     @classmethod
@@ -84,4 +116,5 @@ class Level:
         name = json.get("name", "")
         collectibles = CollectibleInfo(**json.get("collectibles", {}))
         entrances = [Entrance(**args) for args in json.get("entrances", [])]
-        return cls(name, collectibles, entrances)
+        one_way = json.get("one_way", False)
+        return cls(name, collectibles, entrances, one_way)
