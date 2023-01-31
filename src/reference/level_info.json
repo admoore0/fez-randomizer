@@ -133,7 +133,7 @@
             {
                 "level": "SCHOOL",
                 "volume_id": 1,
-                "viewpoint": "RIGHT",
+                "viewpoint": "LEFT",
                 "original_destination": "VILLAGEVILLE_3D"
             }
         ]
@@ -203,6 +203,395 @@
                 "volume_id": 1,
                 "viewpoint": "RIGHT",
                 "original_destination": "VILLAGEVILLE_3D"
+            },
+            {
+                "level": "BIG_TOWER",
+                "volume_id": 3,
+                "viewpoint": "FRONT",
+                "original_destination": "MEMORY_CORE",
+                "cubes_required": 2
+            }
+        ]
+    },
+    {
+        "name": "MEMORY_CORE",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "MEMORY_CORE",
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "BIG_TOWER"
+            },
+            {
+                "level": "MEMORY_CORE",
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "NATURE_HUB"
+            },
+            {
+                "level": "MEMORY_CORE",
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "WALL_VILLAGE",
+                "cubes_required": 4
+            },
+            {
+                "level": "MEMORY_CORE",
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_CITY",
+                "cubes_required": 16
+            },
+            {
+                "level": "MEMORY_CORE",
+                "volume_id": 4,
+                "viewpoint": "BACK",
+                "original_destination": "INDUSTRIAL_CITY",
+                "cubes_required": 8
+            }
+        ]
+    },
+    {
+        "name": "WALL_VILLAGE",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "WALL_VILLAGE",
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "WALL_INTERIOR_A"
+            },
+            {
+                "level": "WALL_VILLAGE",
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "WALL_INTERIOR_B"
+            },
+            {
+                "level": "WALL_VILLAGE",
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "MEMORY_CORE"
+            },
+            {
+                "level": "WALL_VILLAGE",
+                "volume_id": 4,
+                "viewpoint": "FRONT",
+                "original_destination": "WALL_INTERIOR_HOLE"
+            },
+            {
+                "level": "WALL_VILLAGE",
+                "volume_id": 5,
+                "viewpoint": "FRONT",
+                "original_destination": "WALL_KITCHEN"
+            },
+            {
+                "level": "WALL_VILLAGE",
+                "volume_id": 6,
+                "viewpoint": "FRONT",
+                "original_destination": "WALL_SCHOOL"
+            }
+        ]
+    },
+    {
+        "name": "WALL_INTERIOR_A",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "WALL_INTERIOR_A",
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "WALL_VILLAGE"
+            }
+        ]
+    },
+    {
+        "name": "WALL_INTERIOR_B",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "WALL_INTERIOR_B",
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "WALL_VILLAGE"
+            }
+        ]
+    },
+    {
+        "name": "WALL_INTERIOR_HOLE",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "WALL_INTERIOR_HOLE",
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "WALL_VILLAGE"
+            }
+        ]
+    },
+    {
+        "name": "WALL_KITCHEN",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "WALL_KITCHEN",
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "WALL_VILLAGE"
+            }
+        ]
+    },
+    {
+        "name": "WALL_SCHOOL",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "WALL_SCHOOL",
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "WALL_VILLAGE"
+            }
+        ]
+    },
+    {
+        "name": "INDUSTRIAL_CITY",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "INDUSTRIAL_CITY",
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "MEMORY_CORE"
+            },
+            {
+                "level": "INDUSTRIAL_CITY",
+                "volume_id": 2,
+                "viewpoint": "BACK",
+                "original_destination": "NUZU_SCHOOL"
+            },
+            {
+                "level": "INDUSTRIAL_CITY",
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "NUZU_BOILERROOM"
+            },
+            {
+                "level": "INDUSTRIAL_CITY",
+                "volume_id": 4,
+                "viewpoint": "FRONT",
+                "original_destination": "NUZU_ABANDONED_A"
+            },
+            {
+                "level": "INDUSTRIAL_CITY",
+                "volume_id": 5,
+                "viewpoint": "RIGHT",
+                "original_destination": "SHOWERS"
+            },
+            {
+                "level": "INDUSTRIAL_CITY",
+                "volume_id": 6,
+                "viewpoint": "RIGHT",
+                "original_destination": "NUZU_DORM"
+            }
+        ]
+    },
+    {
+        "name": "NUZU_SCHOOL",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "level": "NUZU_SCHOOL",
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "INDUSTRIAL_CITY"
+            }
+        ]
+    },
+    {
+        "name": "NUZU_BOILERROOM",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "NUZU_BOILERROOM",
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "INDUSTRIAL_CITY"
+            }
+        ]
+    },
+    {
+        "name": "NUZU_ABANDONED_A",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "NUZU_ABANDONED_A",
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "INDUSTRIAL_CITY"
+            }
+        ]
+    },
+    {
+        "name": "SHOWERS",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "SHOWERS",
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "INDUSTRIAL_CITY"
+            }
+        ]
+    },
+    {
+        "name": "NUZU_DORM",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "NUZU_DORM",
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "INDUSTRIAL_CITY"
+            }
+        ]
+    },
+    {
+        "name": "ZU_CITY",
+        "collectibles": {
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "level": "ZU_CITY",
+                "volume_id": 2,
+                "viewpoint": "LEFT",
+                "original_destination": "MEMORY_CORE"
+            },
+            {
+                "level": "ZU_CITY",
+                "volume_id": 3,
+                "viewpoint": "FRONT",
+                "original_destination": "OLDSCHOOL"
+            },
+            {
+                "level": "ZU_CITY",
+                "volume_id": 4,
+                "viewpoint": "RIGHT",
+                "original_destination": "PURPLE_LODGE"
+            },
+            {
+                "level": "ZU_CITY",
+                "volume_id": 5,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_HOUSE_SCAFFOLDING"
+            },
+            {
+                "level": "ZU_CITY",
+                "volume_id": 6,
+                "viewpoint": "BACK",
+                "original_destination": "ZU_HOUSE_EMPTY"
+            },
+            {
+                "level": "ZU_CITY",
+                "volume_id": 7,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_HOUSE_EMPTY_B"
+            }
+        ]
+    },
+    {
+        "name": "OLDSCHOOL",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "OLDSCHOOL",
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "ZU_CITY"
+            }
+        ]
+    },
+    {
+        "name": "PURPLE_LODGE",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "PURPLE_LODGE",
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_CITY"
+            }
+        ]
+    },
+    {
+        "name": "ZU_HOUSE_SCAFFOLDING",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "level": "ZU_HOUSE_SCAFFOLDING",
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "ZU_CITY"
+            }
+        ]
+    },
+    {
+        "name": "ZU_HOUSE_EMPTY",
+        "collectibles": {
+            "bits": 1,
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "level": "ZU_HOUSE_EMPTY",
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_CITY"
+            }
+        ]
+    },
+    {
+        "name": "ZU_HOUSE_EMPTY_B",
+        "collectibles": {},
+        "entrances": [
+            {
+                "level": "ZU_HOUSE_EMPTY_B",
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_CITY"
+            }
+        ]
+    },
+    {
+        "name": "NATURE_HUB",
+        "collectibles": {
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "level": "NATURE_HUB",
+                "volume_id": 6,
+                "viewpoint": "BACK",
+                "original_destination": "MEMORY_CORE"
             }
         ]
     }

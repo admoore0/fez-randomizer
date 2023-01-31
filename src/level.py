@@ -98,7 +98,9 @@ class Level:
         for level in levels:
             if level.unused_entrances:
                 return level
-            next_layer += level.connected_levels
+            for connected_level in level.connected_levels:
+                if connected_level not in levels:
+                    next_layer += [connected_level]
         if len(next_layer) == 0:
             return None
         return Level.next_leaf_bfs(next_layer)

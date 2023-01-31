@@ -37,11 +37,6 @@ def main():
                 return (len(level.unused_entrances) >= 2
                         and level != from_level
                         and not level.one_way)
-            
-            valid_levels = [level for level in levels if is_valid(level)]
-            level = random.choice(valid_levels)
-            valid_entrances = [entrance for entrance in level.unused_entrances if level.num_exits(entrance) >= 2]
-            entrance = random.choice(valid_entrances)
             hit = 1
         elif total_unused_entrances < 3:
             # We have an open node that we can connect a one-way level to.
@@ -60,7 +55,7 @@ def main():
         valid_levels = list(filter(is_valid, levels))
         to_level = random.choice(valid_levels)
         to_entrance = to_level.connect_to_random()
-        from_level.connected_levels.append(level)
+        from_level.connected_levels.append(to_level)
 
         if len(from_level.unused_entrances) == 0:
             levels.remove(from_level)
