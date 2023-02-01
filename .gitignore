@@ -398,3 +398,4 @@ Dependencies/*
 !Dependencies/*.md
 
 .env
+config.txt

@@ -38,6 +38,15 @@ class Level:
         if not isinstance(other, Level):
             raise NotImplementedError
         return other.name == self.name
+
+    def contains(self, level: 'Level', visited: List['Level'] = []) -> bool:
+        if level == self:
+            return True
+        else:
+            for connected_level in self.connected_levels:
+                if connected_level.contains(level, visited + [self]):
+                    return True
+        return False
     
     def connect_from_random(self) -> Entrance:
         """
@@ -64,9 +73,31 @@ class Level:
         if self.name in ["OBSERVATORY", "LAVA_XXX", "WELL_B/SEWER_START"]:
             entrance = self.unused_entrances[0]
         else:
-            entrance = random.choice(self.unused_entrances)
+            valid_entrances = [e for e in self.unused_entrances if not (e.locked or e.cubes_required > 0)]
+            if len(valid_entrances) == 0:
+                print("Warning: could not find a valid entrance for this level, player will emerge from locked door.")
+                entrance = random.choice(self.unused_entrances)
+            entrance = random.choice(valid_entrances)
         self.unused_entrances.remove(entrance)
         return entrance
+
+    def pprint(self, depth: int = 0, visited: List['Level'] = []) -> str:
+        """
+        Get a tree visualization of the levels connections.
+        
+        :param depth: How many layers into the tree this level is.
+        :param visited: A list of visited nodes.
+        """
+        prefix = ("| " * depth) + "|-"
+        if self in visited:
+            # Use a star to indicate that this level'c connections are defined elsewhere.
+            return prefix + self.name + "*\n"
+        else:
+            output = prefix + self.name + "\n"
+            for level in self.connected_levels:
+                other_levels_in_group = [l for l in self.connected_levels if l.name != level.name]
+                output += level.pprint(depth + 1, visited + other_levels_in_group + [self])
+            return output
 
     def num_exits(self, entrance: Entrance) -> int:
         if entrance not in self.unused_entrances:

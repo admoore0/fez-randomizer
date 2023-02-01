@@ -27,6 +27,7 @@ def main():
     output_str = ""
 
     while len(levels) > 0:
+        #print(tree.pprint())
         total_unused_entrances = tree.total_unused_entrances()
         from_level = tree.next_leaf()
         from_entrance = from_level.connect_from_random()
@@ -36,12 +37,14 @@ def main():
             def is_valid(level: Level) -> bool:
                 return (len(level.unused_entrances) >= 2
                         and level != from_level
-                        and not level.one_way)
+                        and not level.one_way
+                        and not tree.contains(level))
             hit = 1
         elif total_unused_entrances < 3:
-            # We have an open node that we can connect a one-way level to.
+            # We don't have an open node that we can connect a one-way level to. This also means we can't connect this
+            # level to another one in the tree, as that would use up both entrances.
             def is_valid(level: Level) -> bool:
-                return level != from_level and not level.one_way
+                return level != from_level and not level.one_way and not tree.contains(level)
             hit = 2
         else:
             # Do not let levels connect to themselves unless it is the only option.
@@ -49,13 +52,18 @@ def main():
                 if len(levels) == 1:
                     return True
                 else:
-                    return level != from_level
+                    num_unconnected_levels = len([l for l in levels if not tree.contains(l)])
+                    if num_unconnected_levels == 0:
+                        return level != from_level
+                    else:
+                        return level != from_level and not tree.contains(level) 
             hit = 3
 
         valid_levels = list(filter(is_valid, levels))
         to_level = random.choice(valid_levels)
         to_entrance = to_level.connect_to_random()
-        from_level.connected_levels.append(to_level)
+        if to_level not in from_level.connected_levels:
+            from_level.connected_levels.append(to_level)
 
         if len(from_level.unused_entrances) == 0:
             levels.remove(from_level)
