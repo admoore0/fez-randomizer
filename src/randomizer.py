@@ -21,6 +21,13 @@ def main():
     
     levels = [Level.load_from_json(level) for level in levels_json]
 
+    for level in levels:
+        for entrance in level.entrances:
+            other_level = [l for l in levels if l.name == entrance.original_destination][0]
+            matching_entrances = [e for e in other_level.entrances if e.original_destination == level.name]
+            if len(matching_entrances) == 0:
+                print("Misconfigures level info JSON.")
+
     # Start the tree at GOMEZ_HOUSE (after the 2D section).
     tree = next(filter(lambda x: x.name == "GOMEZ_HOUSE", levels))
 

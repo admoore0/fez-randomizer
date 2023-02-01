@@ -529,9 +529,317 @@
         },
         "entrances": [
             {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "LIGHTHOUSE"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "ARCH"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "BACK",
+                "original_destination": "WATERFALL"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "BELL_TOWER"
+            },
+            {
                 "volume_id": 6,
                 "viewpoint": "BACK",
                 "original_destination": "MEMORY_CORE"
+            },
+            {
+                "volume_id": 7,
+                "viewpoint": "BACK",
+                "original_destination": "TREE_ROOTS"
+            },
+            {
+                "volume_id": 16,
+                "viewpoint": "RIGHT",
+                "original_destination": "RITUAL"
+            }
+        ]
+    },
+    {
+        "name": "LIGHTHOUSE",
+        "collectibles": {
+            "other": "TODO"
+        },
+        "entrances": [
+            {
+                "volume_id": 7,
+                "viewpoint": "FRONT",
+                "original_destination": "NATURE_HUB"
+            }
+        ]
+    },
+    {
+        "name": "ARCH",
+        "collectibles": {
+            "other": "TODO"
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "NATURE_HUB"
+            }
+        ]
+    },
+    {
+        "name": "WATERFALL",
+        "collectibles": {
+            "bits": 1,
+            "owls": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "FOX"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "CMY"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "BACK",
+                "original_destination": "NATURE_HUB"
+            },
+            {
+                "volume_id": 7,
+                "viewpoint": "BACK",
+                "original_destination": "WATER_WHEEL"
+            },
+            {
+                "volume_id": 8,
+                "viewpoint": "FRONT",
+                "original_destination": "MINE_A"
+            },
+            {
+                "volume_id": 9,
+                "viewpoint": "RIGHT",
+                "original_destination": "ZU_CODE_LOOP"
+            },
+            {
+                "volume_id": 22,
+                "viewpoint": "RIGHT",
+                "original_destination": "ZU_ZUISH",
+                "is_underwater": true
+            }
+        ]
+    },
+    {
+        "name": "FOX",
+        "collectibles" : {
+            "bits": 1,
+            "other": "writing_artifact"
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "WATERFALL"
+            }
+        ]
+    },
+    {
+        "name": "CMY",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 2,
+                "viewpoint": "BACK",
+                "original_destination": "WATERFALL"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "FRONT",
+                "original_destination": "CMY_B"
+            },
+            {
+                "volume_id": 4,
+                "viewpoint": "LEFT",
+                "original_destination": "CMY_FORK"
+            }
+        ]
+    },
+    {
+        "name": "CMY_B",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "CMY"
+            }
+        ]
+    },
+    {
+        "name": "CMY_FORK",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 4,
+                "viewpoint": "FRONT",
+                "original_destination": "CMY"
+            }
+        ]
+    },
+    {
+        "name": "WATER_WHEEL",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "WATERFALL"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "WATER_WHEEL_B"
+            }
+        ]
+    },
+    {
+        "name": "WATER_WHEEL_B",
+        "collectibles": {
+            "other": "Burnt Map"
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "WATER_WHEEL"
+            }
+        ]
+    },
+    {
+        "name": "MINE_A",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "WATERFALL"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "FRONT",
+                "original_destination": "MINE_WRAP"
+            }
+        ]
+    },
+    {
+        "name": "MINE_WRAP",
+        "collectibles": {
+            "golden_cubes": 1,
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "MINE_A"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "MINE_BOMB_PILLAR"
+            } 
+        ]
+    },
+    {
+        "name": "MINE_BOMB_PILLAR",
+        "collectibles": {
+            "bits": 1,
+            "keys": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "MINE_WRAP"
+            }
+        ]
+    },
+    {
+        "name": "ZU_CODE_LOOP",
+        "collectibles": {
+            "anti_cubes": 1,
+            "golden_cubes": 1,
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "BACK",
+                "original_destination": "WATERFALL"
+            }
+        ]
+    },
+    {
+        "name": "ZU_ZUISH",
+        "collectibles": {
+            "heart_pieces": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "WATERFALL"
+            }
+        ]
+    },
+    {
+        "name": "BELL_TOWER",
+        "collectibles": {
+            "other": "TODO"
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "NATURE_HUB"
+            }
+        ]
+    },
+    {
+        "name": "RITUAL",
+        "collectibles": {
+            "heart_pieces": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "NATURE_HUB",
+                "is_underwater": true
+            }
+        ]
+    },
+    {
+        "name": "TREE_ROOTS",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "NATURE_HUB"
             }
         ]
     }

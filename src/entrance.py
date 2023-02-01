@@ -13,6 +13,7 @@ class Entrance:
     viewpoint: str
     original_destination: str
     locked: bool = False
+    is_underwater: bool = False
     cubes_required: int = 0
 
     def can_exit(self):

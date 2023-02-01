@@ -14,8 +14,10 @@ from entrance import Entrance, Transition
 class CollectibleInfo:
     golden_cubes: int = 0
     anti_cubes: int = 0
+    heart_pieces: int = 0
     bits: int = 0
     keys: int = 0
+    owls: int = 0
     other: str = ""
 
 
