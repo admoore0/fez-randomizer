@@ -117,6 +117,11 @@ class Level:
     def load_from_json(cls, json: Dict[str, Any]):
         name = json.get("name", "")
         collectibles = CollectibleInfo(**json.get("collectibles", {}))
-        entrances = [Entrance(**args) for args in json.get("entrances", [])]
+        if name == "WELL_B/SEWER_START":
+            # Do some logic to account for different level_names.
+            entrance_level = ""
+        else:
+            entrance_level = name
+        entrances = [Entrance(level=entrance_level, **args) for args in json.get("entrances", [])]
         one_way = json.get("one_way", False)
         return cls(name, collectibles, entrances, one_way)
