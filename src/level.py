@@ -75,11 +75,12 @@ class Level:
         if self.name in ["OBSERVATORY", "LAVA_XXX", "WELL_B/SEWER_START"]:
             entrance = self.unused_entrances[0]
         else:
-            valid_entrances = [e for e in self.unused_entrances if not (e.locked or e.cubes_required > 0)]
+            valid_entrances = [e for e in self.unused_entrances if e.can_exit()]
             if len(valid_entrances) == 0:
                 print("Warning: could not find a valid entrance for this level, player will emerge from locked door.")
                 entrance = random.choice(self.unused_entrances)
-            entrance = random.choice(valid_entrances)
+            else:
+                entrance = random.choice(valid_entrances)
         self.unused_entrances.remove(entrance)
         return entrance
 
