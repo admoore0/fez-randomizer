@@ -561,33 +561,254 @@
             {
                 "volume_id": 16,
                 "viewpoint": "RIGHT",
-                "original_destination": "RITUAL"
+                "original_destination": "RITUAL",
+                "is_underwater": true
             }
         ]
     },
     {
         "name": "LIGHTHOUSE",
         "collectibles": {
-            "other": "TODO"
+            "anti_cubes": 1,
+            "bits": 2
         },
         "entrances": [
+            {
+                "volume_id": 3,
+                "viewpoint": "RIGHT",
+                "original_destination": "ZU_FORK",
+                "is_underwater": true
+            },
+            {
+                "volume_id": 4,
+                "viewpoint": "BACK",
+                "original_destination": "LIGHTHOUSE_HOUSE_A"
+            },
+            {
+                "volume_id": 6,
+                "viewpoint": "RIGHT",
+                "original_destination": "LIGHTHOUSE_SPIN"
+            },
             {
                 "volume_id": 7,
                 "viewpoint": "FRONT",
                 "original_destination": "NATURE_HUB"
+            },
+            {
+                "volume_id": 8,
+                "viewpoint": "LEFT",
+                "original_destination": "WATER_TOWER"
+            }
+        ]
+    },
+    {
+        "name": "ZU_FORK",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "LIGHTHOUSE"
+            }
+        ]
+    },
+    {
+        "name": "LIGHTHOUSE_HOUSE_A",
+        "collectibles": {
+            "bits": 1,
+            "other": "Arch Hidden Platforms Map"
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "LIGHTHOUSE"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "BACK",
+                "original_destination": "LIGHTHOUSE_SPIN"
+            }
+        ]
+    },
+    {
+        "name": "LIGHTHOUSE_SPIN",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "LIGHTHOUSE"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "LIGHTHOUSE_HOUSE_A"
+            }
+        ]
+    },
+    {
+        "name": "WATER_TOWER",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "BACK",
+                "original_destination": "LIGHTHOUSE"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "PIVOT_WATERTOWER"
+            },
+            {
+                "volume_id": 9,
+                "viewpoint": "LEFT",
+                "original_destination": "WATERTOWER_SECRET",
+                "is_underwater": true
+            }
+        ]
+    },
+    {
+        "name": "PIVOT_WATERTOWER",
+        "collectibles": {
+            "bits": 1,
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "WATER_TOWER"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "INDUSTRIAL_HUB"
+            }
+        ]
+    },
+    {
+        "name": "WATERTOWER_SECRET",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "WATER_TOWER"
             }
         ]
     },
     {
         "name": "ARCH",
         "collectibles": {
-            "other": "TODO"
+            "bits": 3,
+            "keys": 1,
+            "anti_cubes": 1
         },
         "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "FIVE_TOWERS"
+            },
             {
                 "volume_id": 1,
                 "viewpoint": "BACK",
                 "original_destination": "NATURE_HUB"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "RIGHT",
+                "original_destination": "WEIGHTSWITCH_TEMPLE",
+                "needs_switch": true
+            }
+        ]
+    },
+    {
+        "name": "FIVE_TOWERS",
+        "collectibles": {
+            "bits": 3,
+            "golden_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "ARCH"
+            },
+            {
+                "volume_id": 16,
+                "viewpoint": "FRONT",
+                "original_destination": "FIVE_TOWERS_CAVE"
+            }
+        ]
+    },
+    {
+        "name": "FIVE_TOWERS_CAVE",
+        "collectibles": {
+            "other": "Labyrinth Map 4"
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "FIVE_TOWERS"
+            }
+        ]
+    },
+    {
+        "name": "WEIGHTSWITCH_TEMPLE",
+        "collectibles": {
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_SWITCH",
+                "needs_switch": true
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "ARCH"
+            }
+        ]
+    },
+    {
+        "name": "ZU_SWITCH",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "WEIGHTSWITCH_TEMPLE"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_SWITCH_B",
+                "needs_switch": true
+            }
+        ]
+    },
+    {
+        "name": "ZU_SWITCH_B",
+        "collectibles": {
+            "golden_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_SWITCH"
             }
         ]
     },
@@ -808,13 +1029,175 @@
     {
         "name": "BELL_TOWER",
         "collectibles": {
-            "other": "TODO"
+            "bits": 2,
+            "anti_cubes": 1
         },
         "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "WATER_PYRAMID"
+            },
             {
                 "volume_id": 1,
                 "viewpoint": "BACK",
                 "original_destination": "NATURE_HUB"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "BACK",
+                "original_destination": "QUANTUM"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "RIGHT",
+                "original_destination": "ANCIENT_WALLS"
+            }
+        ]
+    },
+    {
+        "name": "WATER_PYRAMID",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "BELL_TOWER"
+            }
+        ]
+    },
+    {
+        "name": "QUANTUM",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "BELL_TOWER"
+            }
+        ]
+    },
+    {
+        "name": "ANCIENT_WALLS",
+        "collectibles": {
+            "bits": 3
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "BELL_TOWER"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_TETRIS"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "WALL_HOLE"
+            }
+        ]
+    },
+    {
+        "name": "ZU_TETRIS",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "ANCIENT_WALLS"
+            }
+        ]
+    },
+    {
+        "name": "WALL_HOLE",
+        "collectibles": {
+            "bits": 2,
+            "keys": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "TWO_WALLS"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "ANCIENT_WALLS"
+            }
+        ]
+    },
+    {
+        "name": "TWO_WALLS",
+        "collectibles": {
+            "bits": 3,
+            "golden_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "WALL_HOLE"
+            },
+            {
+                "volume_id": 4,
+                "viewpoint": "BACK",
+                "original_destination": "FRACTAL"
+            }
+        ]
+    },
+    {
+        "name": "FRACTAL",
+        "collectibles": {
+            "bits": 3
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "BACK",
+                "original_destination": "TWO_WALLS"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_4_SIDE"
+            }
+        ]
+    },
+    {
+        "name": "ZU_4_SIDE",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "FRACTAL"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_HEADS",
+                "needs_switch": true
+            }
+        ]
+    },
+    {
+        "name": "ZU_HEADS",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_4_SIDE"
             }
         ]
     },
@@ -827,8 +1210,7 @@
             {
                 "volume_id": 0,
                 "viewpoint": "FRONT",
-                "original_destination": "NATURE_HUB",
-                "is_underwater": true
+                "original_destination": "NATURE_HUB"
             }
         ]
     },
@@ -840,6 +1222,165 @@
                 "volume_id": 0,
                 "viewpoint": "LEFT",
                 "original_destination": "NATURE_HUB"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "TREE"
+            }
+        ]
+    },
+    {
+        "name": "TREE",
+        "collectibles": {
+            "anti_cubes": 1,
+            "owls": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "CABIN_INTERIOR_A"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "TREE_ROOTS"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "TREE_SKY"
+            },
+            {
+                "volume_id": 16,
+                "viewpoint": "BACK",
+                "original_destination": "TREE_CRUMBLE"
+            }
+        ]
+    },
+    {
+        "name": "CABIN_INTERIOR_A",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "TREE"
+            }
+        ]
+    },
+    {
+        "name": "TREE_SKY",
+        "collectibles": {
+            "anti_cubes": 1,
+            "other": "QR Map"
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "TREE"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "THRONE"
+            }
+        ]
+    },
+    {
+        "name": "THRONE",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "ZU_BRIDGE"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "LEFT",
+                "original_destination": "TREE_SKY"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_UNFOLD"
+            }
+        ]
+    },
+    {
+        "name": "ZU_BRIDGE",
+        "collectibles": {
+            "bits": 2,
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "BACK",
+                "original_destination": "THRONE"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "ZU_CITY_RUINS"
+            }
+        ]
+    },
+    {
+        "name": "ZU_UNFOLD",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "THRONE"
+            }
+        ]
+    },
+    {
+        "name": "TREE_CRUMBLE",
+        "collectibles": {
+            "bits": 1,
+            "other": "Labyrinth Map 3"
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "TREE"
+            }
+        ]
+    },
+    {
+        "name": "ZU_CITY_RUINS",
+        "collectibles": {
+            "other": "TODO"
+        },
+        "entrances": [
+            {
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_BRIDGE"
+            }
+        ]
+    },
+    {
+        "name": "INDUSTRIAL_HUB",
+        "collectibles": {
+            "other": "TODO"
+        },
+        "entrances": [
+            {
+                "volume_id": 3,
+                "viewpoint": "BACK",
+                "original_destination": "PIVOT_WATERTOWER"
             }
         ]
     }

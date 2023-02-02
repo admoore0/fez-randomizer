@@ -14,11 +14,13 @@ class Entrance:
     original_destination: str
     locked: bool = False
     is_underwater: bool = False
+    needs_owls: bool = False
+    needs_switch: bool = False
     cubes_required: int = 0
 
     def can_exit(self):
         """Do not allow exiting from locked doors."""
-        return (not self.locked) and (self.cubes_required == 0)
+        return not (self.locked or self.cubes_required != 0 or self.is_underwater or self.needs_owls or self.needs_switch)
 
 
 @dataclass
