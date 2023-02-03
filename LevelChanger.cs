@@ -16,6 +16,7 @@ using FezEngine.Effects.Structures;
 using FezEngine.Tools;
 
 using MonoMod.RuntimeDetour;
+using static Randomizer.LevelChanger;
 
 namespace Randomizer
 {
@@ -73,6 +74,11 @@ namespace Randomizer
                 EnterDoorType.GetMethod("Begin", BindingFlags.NonPublic | BindingFlags.Instance),
                 new Action<Action<object>, object>((orig, self) =>
                 {
+                    if (LevelManager.Name.StartsWith("CABIN_INTERIOR"))
+                    {
+                        //TODO this still looks weird, gomez is facing to the side when walking through.
+                        PlayerManager.SpinThroughDoor = false;
+                    }
                     LevelManager.DestinationIsFarAway = false;
                     StateManager.FarawaySettings.Reset();
                     orig(self);
@@ -119,14 +125,19 @@ namespace Randomizer
             var manager = (GameLevelManager)self;
             string prevLevel = manager.Name;
             List<Entrance> matchingEntrances = Entrances.Where(entrance => entrance.LevelFrom == prevLevel && entrance.LevelToOrig == level_name).ToList();
+            Console.WriteLine($"From: {prevLevel}, To: {level_name}");
             if (matchingEntrances.Count > 0)
             {
                 Entrance entrance = matchingEntrances[0];
 
                 manager.DestinationVolumeId = entrance.DestVolumeId;
                 orig(self, entrance.LevelToNew);
-                
-                CameraManager.AlterTransition(StringToView(entrance.DestViewpoint));
+
+                // For some reason, these levels crash when setting the camera.
+                if(!(entrance.LevelToNew.StartsWith("CABIN_INTERIOR")))
+                {
+                    CameraManager.AlterTransition(StringToView(entrance.DestViewpoint));
+                }
             }
             else
             {
