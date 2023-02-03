@@ -5,6 +5,7 @@ Randomizer for FEZ.
 import json
 import os
 import random
+from typing import List
 
 from level import Level
 from entrance import Entrance, Transition
@@ -22,14 +23,21 @@ def main():
     levels = [Level.load_from_json(level) for level in levels_json]
 
     for level in levels:
+        if level.name.startswith("CABIN_INTERIOR"):
+            continue
         for entrance in level.entrances:
             other_level = [l for l in levels if l.name == entrance.original_destination][0]
+            if other_level.name.startswith("CABIN_INTERIOR"):
+                continue
             matching_entrances = [e for e in other_level.entrances if e.original_destination == level.name]
             if len(matching_entrances) == 0:
                 print("Misconfigured level info JSON.")
 
     # Start the tree at GOMEZ_HOUSE (after the 2D section).
     tree = next(filter(lambda x: x.name == "GOMEZ_HOUSE", levels))
+
+    sewer_start = next(filter(lambda x: x.name == "SEWER_START", levels))
+    levels.remove(sewer_start)
 
     output_str = ""
 
@@ -64,7 +72,6 @@ def main():
             def is_valid(level: Level) -> bool:
                 return level != from_level and not level.one_way and not tree.contains(level)
             hit = 3
-        
         else:
             # Do not let levels connect to themselves unless it is the only option.
             def is_valid(level: Level) -> bool:
@@ -74,10 +81,26 @@ def main():
         valid_levels = list(filter(is_valid, levels))
         to_level = random.choice(valid_levels)
         to_entrance = to_level.connect_to_random()
+
+        if(from_level == to_level):
+            print(f"Level {from_level.name} connecting to itself. {hit=}")
+
         if to_level not in from_level.connected_levels:
             from_level.connected_levels.append(to_level)
 
-        if len(from_level.unused_entrances) == 0:
+        if to_level.name == "CABIN_INTERIOR_A":
+            to_level.connected_levels.append(next(filter(lambda x: x.name == "CABIN_INTERIOR_B", levels)))
+        elif to_level.name == "CABIN_INTERIOR_B":
+            to_level.connected_levels.append(next(filter(lambda x: x.name == "CABIN_INTERIOR_A", levels)))
+        elif to_level.name == "WELL_2":
+            to_level.connected_levels.append(sewer_start)
+        #     transition = connect_one_way(sewer_start, levels, tree)
+        #     output_str += str(transition)
+        # elif to_level.one_way:
+        #     transition = connect_one_way(to_level, levels, tree)
+        #     output_str += str(transition)
+
+        if from_level in levels and len(from_level.unused_entrances) == 0:
             levels.remove(from_level)
         if to_level != from_level and len(to_level.unused_entrances) == 0:
             levels.remove(to_level)
@@ -88,8 +111,29 @@ def main():
     
     print("Done.")
 
-        
+    
+def connect_one_way(level: Level, levels: List[Level], tree: Level) -> Transition:
+    """
+    Connect the other end of a one way level back to the tree.
+    """
+    from_entrance = level.connect_from_random()
 
+    def is_valid(to_level: Level) -> bool:
+        return (tree.contains(to_level) and to_level.num_exits() > 0 and not to_level.one_way
+                and level != to_level)
+    valid_levels = list(filter(is_valid, levels))
+    if len(valid_levels) == 0:
+        print("Could not connect back to tree. How?")
+    to_level = random.choice(valid_levels)
+    to_entrance = to_level.connect_to_random()
+
+    level.connected_levels.append(to_level)
+
+    # Removing the "from level" happens in the main function.
+    if to_level != level and len(to_level.unused_entrances) == 0:
+        levels.remove(to_level)
+    
+    return Transition(from_entrance, to_entrance)
 
 
 if __name__ == "__main__":
