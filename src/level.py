@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 import random
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from entrance import Entrance, Transition
 
@@ -41,13 +41,18 @@ class Level:
             raise NotImplementedError
         return other.name == self.name
 
-    def contains(self, level: 'Level', visited: List['Level'] = []) -> bool:
-        if level == self:
-            return True
+    def contains(self, level: Union['Level', str], visited: List['Level'] = []) -> bool:
+        if self in visited:
+            return False
+        if isinstance(level, str):
+            if level == self.name:
+                return True
         else:
-            for connected_level in self.connected_levels:
-                if connected_level.contains(level, visited + [self]):
-                    return True
+            if level == self:
+                return True
+        for connected_level in self.connected_levels:
+            if connected_level.contains(level, visited + [self]):
+                return True
         return False
     
     def connect_from_random(self) -> Entrance:
@@ -102,13 +107,9 @@ class Level:
                 output += level.pprint(depth + 1, visited + other_levels_in_group + [self])
             return output
 
-    def num_exits(self, entrance: Entrance) -> int:
-        if entrance not in self.unused_entrances:
-            raise ValueError("Entrance in use or not in this level.")
-        if self.name == "OBSERVATORY" and entrance.volume_id != 696969:
-            # Add bottom node to unreachable entrances.
-            return len(self.unused_entrances) - 2
-        return len(self.unused_entrances) - 1
+    def num_exits(self) -> int:
+        open_exits = [e for e in self.unused_entrances if e.can_exit()]
+        return len(open_exits)
 
     def get_nearest_entrance(self) -> Optional[Entrance]:
         if len(self.unused_entrances) >= 1:
