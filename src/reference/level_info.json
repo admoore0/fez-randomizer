@@ -861,7 +861,7 @@
         "name": "FOX",
         "collectibles" : {
             "bits": 1,
-            "other": "writing_artifact"
+            "other": "Writing Artifact"
         },
         "entrances": [
             {
@@ -1240,7 +1240,7 @@
             {
                 "volume_id": 0,
                 "viewpoint": "RIGHT",
-                "original_destination": "CABIN_INTERIOR_A"
+                "original_destination": "CABIN_INTERIOR_B"
             },
             {
                 "volume_id": 2,
@@ -1361,26 +1361,712 @@
     {
         "name": "ZU_CITY_RUINS",
         "collectibles": {
-            "other": "TODO"
+            "other": "Tree Sky Hidden Platforms Map"
         },
         "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "STARGATE_RUINS"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "OBSERVATORY"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "BACK",
+                "original_destination": "CLOCK"
+            },
             {
                 "volume_id": 3,
                 "viewpoint": "LEFT",
                 "original_destination": "ZU_BRIDGE"
+            },
+            {
+                "volume_id": 4,
+                "viewpoint": "BACK",
+                "original_destination": "ZU_THRONE_RUINS"
+            },
+            {
+                "volume_id": 5,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_HOUSE_RUIN_VISITORS"
+            },
+            {
+                "volume_id": 12,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_HOUSE_QR"
+            },
+            {
+                "volume_id": 26,
+                "viewpoint": "FRONT",
+                "original_destination": "OLDSCHOOL_RUINS"
+            },
+            {
+                "volume_id": 27,
+                "viewpoint": "RIGHT",
+                "original_destination": "PURPLE_LODGE_RUIN"
+            }
+        ]
+    },
+    {
+        "name": "STARGATE_RUINS",
+        "collectibles": {
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_CITY_RUINS"
+            }
+        ]
+    },
+    {
+        "name": "OBSERVATORY",
+        "collectibles": {
+            "golden_cubes": 1
+        },
+        "one_way": true,
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_CITY_RUINS"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "TELESCOPE"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "RIGHT",
+                "original_destination": "VISITOR"
+            }
+        ]
+    },
+    {
+        "name": "TELESCOPE",
+        "collectibles": {
+            "anti_cubes": 1,
+            "heart_pieces": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "OBSERVATORY"
+            }
+        ]
+    },
+    {
+        "name": "VISITOR",
+        "collectibles": {
+            "golden_cubes": 1,
+            "owls": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "ORRERY"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "OBSERVATORY"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "CODE_MACHINE"
+            }
+        ]
+    },
+    {
+        "name": "ORRERY",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "VISITOR"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "ORRERY_B"
+            }
+        ]
+    },
+    {
+        "name": "ORRERY_B",
+        "collectibles": {
+            "other": "Number Artifact"
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "ORRERY"
+            }
+        ]
+    },
+    {
+        "name": "CODE_MACHINE",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "VISITOR"
+            }
+        ]
+    },
+    {
+        "name": "CLOCK",
+        "collectibles": {
+            "golden_cubes": 1,
+            "anti_cubes": 4
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "BACK",
+                "original_destination": "ZU_CITY_RUINS"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "ZU_LIBRARY"
+            }
+        ]
+    },
+    {
+        "name": "ZU_LIBRARY",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "LIBRARY_INTERIOR"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "CLOCK"
+            }
+        ]
+    },
+    {
+        "name": "LIBRARY_INTERIOR",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "ZU_LIBRARY"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "GLOBE",
+                "needs_switch": true
+            }
+        ]
+    },
+    {
+        "name": "GLOBE",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "LIBRARY_INTERIOR"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "GLOBE_INT",
+                "needs_switch": true
+            }
+        ]
+    },
+    {
+        "name": "GLOBE_INT",
+        "collectibles": {
+            "other": "Tome Artifact"
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "GLOBE"
+            }
+        ]
+    },
+    {
+        "name": "ZU_THRONE_RUINS",
+        "collectibles": {
+            "anti_cubes": 1,
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_CITY_RUINS"
+            }
+        ]
+    },
+    {
+        "name": "ZU_HOUSE_RUIN_VISITORS",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "ZU_CITY_RUINS"   
+            }
+        ]
+    },
+    {
+        "name": "ZU_HOUSE_QR",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "ZU_CITY_RUINS"
+            }
+        ]
+    },
+    {
+        "name": "OLDSCHOOL_RUINS",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "ZU_CITY_RUINS"
+            }
+        ]
+    },
+    {
+        "name": "PURPLE_LODGE_RUIN",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "ZU_CITY_RUINS"
+            }
+        ]
+    },
+    {
+        "name": "CABIN_INTERIOR_B",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "GRAVE_CABIN"
+            }
+        ]
+    },
+    {
+        "name": "GRAVE_CABIN",
+        "collectibles": {
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "CABIN_INTERIOR_A"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "GRAVEYARD_GATE"
+            }
+        ]
+    },
+    {
+        "name": "GRAVEYARD_GATE",
+        "collectibles": {
+            "bits": 7
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "GRAVE_CABIN"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "SKULL"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "RIGHT",
+                "original_destination": "OWL"
+            },
+            {
+                "volume_id": 4,
+                "viewpoint": "LEFT",
+                "original_destination": "MAUSOLEUM"
+            }
+        ]
+    },
+    {
+        "name": "SKULL",
+        "collectibles": {
+            "bits": 3
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "GRAVEYARD_GATE"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "SKULL_B",
+                "needs_switch": true
+            }
+        ]
+    },
+    {
+        "name": "SKULL_B",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "SKULL"
+            }
+        ]
+    },
+    {
+        "name": "OWL",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "GRAVEYARD_GATE"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "BACK",
+                "original_destination": "BIG_OWL",
+                "needs_owls": true
+            }
+        ]
+    },
+    {
+        "name": "BIG_OWL",
+        "collectibles": {
+            "anti_cubes": 1,
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "OWL"
+            }
+        ]
+    },
+    {
+        "name": "MAUSOLEUM",
+        "collectibles": {
+            "bits": 4,
+            "other": "Labyrinth Map 1"
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "GRAVEYARD_A"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "GRAVEYARD_GATE"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "FRONT",
+                "original_destination": "CRYPT",
+                "locked": true
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "RIGHT",
+                "original_destination": "GRAVE_GHOST"
+            }
+        ]
+    },
+    {
+        "name": "GRAVEYARD_A",
+        "collectibles": {
+            "bits": 3
+        },
+        "entrances": [
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "MAUSOLEUM"
+            },
+            {
+                "volume_id": 4,
+                "viewpoint": "FRONT",
+                "original_destination": "GRAVE_LESSER_GATE"
+            },
+            {
+                "volume_id": 5,
+                "viewpoint": "LEFT",
+                "original_destination": "GRAVE_TREASURE_A"
+            }
+        ]
+    },
+    {
+        "name": "GRAVE_LESSER_GATE",
+        "collectibles": {
+            "golden_cubes": 1,
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "GRAVEYARD_A"
+            }
+        ]
+    },
+    {
+        "name": "GRAVE_TREASURE_A",
+        "collectibles": {
+            "golden_cubes": 1,
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "GRAVEYARD_A"
+            }
+        ]
+    },
+    {
+        "name": "CRYPT",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "MAUSOLEUM"
+            },
+            {
+                "volume_id": 14,
+                "viewpoint": "BACK",
+                "original_destination": "TREE_OF_DEATH"
+            }
+        ]
+    },
+    {
+        "name": "TREE_OF_DEATH",
+        "collectibles": {
+            "other": "Skull Artifact"
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "CRYPT"
+            }
+        ]
+    },
+    {
+        "name": "GRAVE_GHOST",
+        "collectibles": {
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "MAUSOLEUM"
             }
         ]
     },
     {
         "name": "INDUSTRIAL_HUB",
-        "collectibles": {
-            "other": "TODO"
-        },
+        "collectibles": {},
         "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "INDUSTRIAL_SUPERSPIN"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "RAILS"
+            },
             {
                 "volume_id": 3,
                 "viewpoint": "BACK",
                 "original_destination": "PIVOT_WATERTOWER"
+            }
+        ]
+    },
+    {
+        "name": "INDUSTRIAL_SUPERSPIN",
+        "collectibles": {
+            "bits": 3,
+            "other": "Lighthouse Hidden Platforms Map"
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "INDUSTRIAL_HUB"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "SUPERSPIN_CAVE"
+            }
+        ]
+    },
+    {
+        "name": "SUPERSPIN_CAVE",
+        "collectibles": {
+            "golden_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "INDUSTRIAL_SUPERSPIN"
+            }
+        ]
+    },
+    {
+        "name": "RAILS",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "WELL_2",
+                "locked": true
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "INDUSTRIAL_HUB"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "FRONT",
+                "original_destination": "TRIPLE_PIVOT_CAVE"
+            }
+        ]
+    },
+    {
+        "name": "WELL_2",
+        "collectibles": {},
+        "one_way": true,
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "RAILS"
+            }
+        ]
+    },
+    {
+        "name": "TRIPLE_PIVOT_CAVE",
+        "collectibles": {
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "BACK",
+                "original_destination": "RAILS"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "SPINNING_PLATES"
+            }
+        ]
+    },
+    {
+        "name": "SPINNING_PLATES",
+        "collectibles": {
+            "golden_cubes": 1,
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "TRIPLE_PIVOT_CAVE"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_START",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "SEWER_HUB"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_HUB",
+        "collectibles": {
+            "bits": 2
+        },
+        "entrances": [
+            {
+                "volume_id": 8,
+                "viewpoint": "FRONT",
+                "original_destination": "SEWER_START"
             }
         ]
     }
