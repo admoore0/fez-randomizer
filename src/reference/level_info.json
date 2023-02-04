@@ -920,7 +920,9 @@
     },
     {
         "name": "WATER_WHEEL",
-        "collectibles": {},
+        "collectibles": {
+            "water_lower": true
+        },
         "entrances": [
             {
                 "volume_id": 1,
@@ -1940,9 +1942,24 @@
                 "original_destination": "RAILS"
             },
             {
+                "volume_id": 2,
+                "viewpoint": "LEFT",
+                "original_destination": "PIVOT_ONE"
+            },
+            {
                 "volume_id": 3,
                 "viewpoint": "BACK",
                 "original_destination": "PIVOT_WATERTOWER"
+            },
+            {
+                "volume_id": 4,
+                "viewpoint": "FRONT",
+                "original_destination": "INDUST_ABANDONED_A"
+            },
+            {
+                "volume_id": 5,
+                "viewpoint": "BACK",
+                "original_destination": "NUZU_ABANDONED_B"
             }
         ]
     },
@@ -2058,15 +2075,399 @@
         ]
     },
     {
+        "name": "PIVOT_ONE",
+        "collectibles": {
+            "bits": 3,
+            "owls": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "BACK",
+                "original_destination": "WINDMILL_INT",
+                "locked": true
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "INDUSTRIAL_HUB"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "PIVOT_TWO"
+            }
+        ]
+    },
+    {
+        "name": "WINDMILL_INT",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "WINDMILL_CAVE"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "PIVOT_ONE"
+            }
+        ]
+    },
+    {
+        "name": "WINDMILL_CAVE",
+        "collectibles": {
+            "golden_cubes": 1,
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "WINDMILL_INT"
+            }
+        ]
+    },
+    {
+        "name": "PIVOT_TWO",
+        "collectibles": {
+            "bits": 3
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "PIVOT_THREE-"
+            },
+            {
+                "volume_id": 5,
+                "viewpoint": "LEFT",
+                "original_destination": "EXTRACTOR_A"
+            }
+        ]
+    },
+    {
+        "name": "PIVOT_THREE-",
+        "collectibles": {},
+        "entrances": [ 
+            {
+                "volume_id": 1,
+                "viewpoint": "LEFT",
+                "original_destination": "PIVOT_THREE_CAVE",
+                "needs_switch": true
+            },
+            {
+                "volume_id": 6,
+                "viewpoint": "RIGHT",
+                "original_destination": "PIVOT_TWO"
+            },
+            {
+                "volume_id": 7,
+                "viewpoint": "BACK",
+                "original_destination": "PIVOT_ONE"
+            }
+        ]
+    },
+    {
+        "name": "PIVOT_THREE_CAVE",
+        "collectibles": {},
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "PIVOT_THREE-"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "PIVOT_THREE+"
+            }
+        ]
+    },
+    {
+        "name": "PIVOT_THREE+",
+        "collectibles": {
+            "golden_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 2,
+                "viewpoint": "RIGHT",
+                "original_destination": "PIVOT_THREE_CAVE"
+            }
+        ]
+    },
+    {
+        "name": "EXTRACTOR_A",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "PIVOT_TWO"
+            }
+        ]
+    },
+    {
+        "name": "INDUST_ABANDONED_A",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "INDUSTRIAL_HUB"
+            }
+        ]
+    },
+    {
+        "name": "NUZU_ABANDONED_B",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "INDUSTRIAL_HUB"
+            }
+        ]
+    },
+    {
         "name": "SEWER_HUB",
         "collectibles": {
             "bits": 2
         },
         "entrances": [
             {
+                "volume_id": 5,
+                "viewpoint": "BACK",
+                "original_destination": "SEWER_PIVOT"
+            },
+            {
+                "volume_id": 6,
+                "viewpoint": "RIGHT",
+                "original_destination": "SEWER_TO_LAVA"
+            },
+            {
+                "volume_id": 7,
+                "viewpoint": "LEFT",
+                "original_destination": "SEWER_GEYSER"
+            },
+            {
                 "volume_id": 8,
                 "viewpoint": "FRONT",
                 "original_destination": "SEWER_START"
+            },
+            {
+                "volume_id": 9,
+                "viewpoint": "RIGHT",
+                "original_destination": "SEWER_QR",
+                "locked": true
+            },
+            {
+                "volume_id": 10,
+                "viewpoint": "BACK",
+                "original_destination": "SEWER_TREASURE_ONE"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_PIVOT",
+        "collectibles": {
+            "golden_cubes": 1,
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "SEWER_HUB"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_TO_LAVA",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "SEWER_HUB"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "LEFT",
+                "original_destination": "LAVA",
+                "needs_switch": true
+            }
+        ]
+    },
+    {
+        "name": "LAVA",
+        "collectibles": {},
+        "one_way": true,
+        "entrances": [
+            {
+                "volume_id": 4,
+                "viewpoint": "FRONT",
+                "original_destination": "SEWER_TO_LAVA"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "LEFT",
+                "original_destination": "LAVA_SKULL"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "LEFT",
+                "original_destination": "LAVA_FORK"
+            }
+        ]
+    },
+    {
+        "name": "LAVA_SKULL",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 2,
+                "viewpoint": "BACK",
+                "original_destination": "LAVA"
+            }
+        ]
+    },
+    {
+        "name": "LAVA_FORK",
+        "collectibles": {
+            "anti_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "BACK",
+                "original_destination": "LAVA"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_GEYSER",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "SEWER_HUB"
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "RIGHT",
+                "original_destination": "SEWER_PILLARS"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_PILLARS",
+        "collectibles": {
+            "bits": 3
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "SEWER_FORK",
+                "locked": true
+            },
+            {
+                "volume_id": 1,
+                "viewpoint": "FRONT",
+                "original_destination": "SEWER_TREASURE_TWO"
+            },
+            {
+                "volume_id": 2,
+                "viewpoint": "LEFT",
+                "original_destination": "SEWER_LESSER_GATE_B"
+            },
+            {
+                "volume_id": 3,
+                "viewpoint": "RIGHT",
+                "original_destination": "SEWER_GEYSER"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_FORK",
+        "collectibles": {
+            "anti_cubes": 1,
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "SEWER_PILLARS"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_TREASURE_TWO",
+        "collectibles": {
+            "keys": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "RIGHT",
+                "original_destination": "SEWER_PILLARS"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_LESSER_GATE_B",
+        "collectibles": {
+            "golden_cubes": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 1,
+                "viewpoint": "BACK",
+                "original_destination": "SEWER_PILLARS"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_QR",
+        "collectibles": {
+            "anti_cubes": 1,
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "FRONT",
+                "original_destination": "SEWER_HUB"
+            }
+        ]
+    },
+    {
+        "name": "SEWER_TREASURE_ONE",
+        "collectibles": {
+            "keys": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 0,
+                "viewpoint": "LEFT",
+                "original_destination": "SEWER_HUB"
             }
         ]
     }
