@@ -124,14 +124,55 @@ namespace Randomizer
         {
             var manager = (GameLevelManager)self;
             string prevLevel = manager.Name;
-            List<Entrance> matchingEntrances = Entrances.Where(entrance => entrance.LevelFrom == prevLevel && entrance.LevelToOrig == level_name).ToList();
+
+            // Handle coming from pivot_three
+            if(prevLevel == "PIVOT_THREE")
+            {
+                if(PlayerManager.Position.Y < 55.0f)
+                {
+                    prevLevel = "PIVOT_THREE-";
+                }
+                else
+                {
+                    prevLevel = "PIVOT_THREE+";
+                }
+            }
+
+            // Handle going to pivot_three
+            string toLevel = level_name;
+            if(toLevel == "PIVOT_THREE")
+            {
+                if(prevLevel == "PIVOT_THREE_CAVE")
+                {
+                    if (PlayerManager.Position.Y < 75.0f)
+                    {
+                        toLevel = "PIVOT_THREE-";
+                    }
+                    else
+                    {
+                        toLevel = "PIVOT_THREE+";
+                    }
+                }
+                else
+                {
+                    toLevel = "PIVOT_THREE-";
+                }
+            }
+
+            List<Entrance> matchingEntrances = Entrances.Where(entrance => entrance.LevelFrom == prevLevel && entrance.LevelToOrig == toLevel).ToList();
             Console.WriteLine($"From: {prevLevel}, To: {level_name}");
             if (matchingEntrances.Count > 0)
             {
                 Entrance entrance = matchingEntrances[0];
 
                 manager.DestinationVolumeId = entrance.DestVolumeId;
-                orig(self, entrance.LevelToNew);
+                string levelToNew = entrance.LevelToNew;
+                if(levelToNew == "PIVOT_THREE+" || levelToNew == "PIVOT_THREE-")
+                {
+                    levelToNew = "PIVOT_THREE";
+                }
+                Console.WriteLine(levelToNew);
+                orig(self, levelToNew);
 
                 // For some reason, these levels crash when setting the camera.
                 if(!(entrance.LevelToNew.StartsWith("CABIN_INTERIOR")))

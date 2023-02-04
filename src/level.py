@@ -77,7 +77,7 @@ class Level:
         """
         if not self.unused_entrances:
             raise ValueError("Level has no unused entrances.")
-        if self.name in ["OBSERVATORY", "LAVA_XXX", "WELL_B"]:
+        if self.name in ["OBSERVATORY", "LAVA", "WELL_2"]:
             entrance = self.unused_entrances[0]
         else:
             valid_entrances = [e for e in self.unused_entrances if e.can_exit()]
