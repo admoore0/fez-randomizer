@@ -4,7 +4,7 @@ Class for storing information about level transitions.
 
 from dataclasses import dataclass
 
-
+from collectible_info import CollectibleInfo
 @dataclass
 class Entrance:
     """Class for information about a single entrance."""
@@ -21,6 +21,18 @@ class Entrance:
     def can_exit(self):
         """Do not allow exiting from locked doors."""
         return not (self.locked or self.cubes_required != 0 or self.is_underwater or self.needs_owls or self.needs_switch)
+
+    def can_enter(self, current_collectibles: CollectibleInfo):
+        """Return whether or not this entrance can be accessed."""
+        if self.locked:
+            return current_collectibles.keys > 0
+        if self.cubes_required > 0:
+            return current_collectibles.total_cubes() >= self.cubes_required
+        if self.is_underwater:
+            return current_collectibles.water_lower
+        if self.needs_owls:
+            return current_collectibles.owls == 4
+        return True
 
 
 @dataclass

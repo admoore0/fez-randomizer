@@ -7,7 +7,7 @@ import os
 import random
 from typing import List
 
-from level import Level
+from level import CollectibleInfo, Level
 from entrance import Entrance, Transition
 
 LEVEL_INFO_FILE = "src/reference/level_info.json"
@@ -22,65 +22,106 @@ def main():
     
     levels = [Level.load_from_json(level) for level in levels_json]
 
+    entrances = []
     for level in levels:
-        if level.name.startswith("CABIN_INTERIOR"):
-            continue
-        for entrance in level.entrances:
-            other_level = [l for l in levels if l.name == entrance.original_destination][0]
-            if other_level.name.startswith("CABIN_INTERIOR"):
-                continue
-            matching_entrances = [e for e in other_level.entrances if e.original_destination == level.name]
-            if len(matching_entrances) == 0:
-                print("Misconfigured level info JSON.")
+        entrances += level.entrances
+
+    for entrance in entrances:
+        def is_matching_entrance(other: Entrance) -> bool:
+            return other.original_destination == entrance.level and entrance.original_destination == other.level
+        try:
+            matching_entrance = next(filter(is_matching_entrance, entrances))
+        except StopIteration:
+            if not (entrance.level.startswith("CABIN_INTERIOR") or entrance.original_destination.startswith("CABIN_INTERIOR")):
+                print(f"Misconfigured level info JSON. from={entrance}")
+
+    random.shuffle(levels)
+    removed_levels = 0
+    # Because there are three one way levels and only 2 loopbacks in the graph, two single-entrance rooms will be
+    # unreachable. Ensure these have no collectibles.
+    for level in levels:
+        if removed_levels == 4:
+            break
+        if not level.collectibles and len(level.entrances) == 1 and level.name not in ["GOMEZ_HOUSE", "CABIN_INTERIOR_A", "CABIN_INTERIOR_B", "WELL_2"]:
+            print(f"Removing level: {level.name}")
+            levels.remove(level)
+            removed_levels += 1
 
     # Start the tree at GOMEZ_HOUSE (after the 2D section).
-    tree = next(filter(lambda x: x.name == "GOMEZ_HOUSE", levels))
+    tree = levels[levels.index("GOMEZ_HOUSE")]
 
-    sewer_start = next(filter(lambda x: x.name == "SEWER_START", levels))
-    levels.remove(sewer_start)
+    # Remove sewer start from the tree, as it should only be accessed by going through well_2
+    sewer_start = levels.pop(levels.index("SEWER_START"))
+    levels.remove("OWL")
+
+    # A list of every level currently in the tree.
+    tree_flat: List[Level] = [tree]
+
+    # A list of levels currently not in the tree.
+    unused_levels: List[Level] = levels.copy()
+    unused_levels.remove("GOMEZ_HOUSE")
+
+    transitions = []
 
     output_str = ""
 
-    while len(levels) > 0:
+    current_collectibles = CollectibleInfo(anti_cubes=1)
+
+    while len([l for l in tree_flat if len(l.unused_entrances) > 0]) > 0:
         #print(tree.pprint())
-        total_unused_entrances = tree.total_unused_entrances()
-        num_unconnected_levels = len([l for l in levels if not tree.contains(l)])
-        from_level = tree.next_leaf()
-        from_entrance = from_level.connect_from_random()
-        if len(levels) == 1:
-            # If there's only one level left, we're stuck. Connect to ourselves if necessary.
+        total_unused_entrances = sum([level.open_exits(current_collectibles) for level in tree_flat])
+        unfinished_levels = [l for l in tree_flat if len(l.unused_entrances) > 0]
+        valid_from_levels = [l for l in unfinished_levels if l.open_exits(current_collectibles) > 0]
+        from_level = random.choice(valid_from_levels)
+        from_entrance = from_level.connect_from_random(current_collectibles)
+        if from_entrance.locked:
+            current_collectibles.keys -= 1
+        if from_level in unfinished_levels and len(from_level.unused_entrances) == 0:
+            unfinished_levels.remove(from_level)
+        if len(unused_levels) == 0 and len(unfinished_levels) == 1:
+            # If there are no more untouched levels, we're stuck. Connect to ourselves if necessary.
             def is_valid(level: Level) -> bool:
                 return True
             hit = 0
-        elif num_unconnected_levels == 0:
+        elif len(unused_levels) == 0:
             # If every level has been hit, we have to connect back to somewhere in the tree. Avoid connecting to self.
             def is_valid(level: Level) -> bool:
                 return level != from_level
             hit = 1
-        elif total_unused_entrances == 1 and len(levels) > 2:
+        elif len(unused_levels) == 1:
+            # If there is only one unconnected level left, me must connect to it.
+            def is_valid(level: Level) -> bool:
+                return level in unused_levels
+            hit = 2
+        elif total_unused_entrances == 1:
             # We must connect a level that has more than one entrance, otherwise the tree is dead. In addition, we
             # can't connect one way levels, as they require even more unused entrances.
             def is_valid(level: Level) -> bool:
-                return (len(level.unused_entrances) >= 2
-                        and level != from_level
+                return (level.open_exits(current_collectibles) >= 2
                         and not level.one_way
-                        and not tree.contains(level))
-            hit = 2
+                        and level in unused_levels)
+            hit = 3
         elif total_unused_entrances < 3:
             # We don't have an open node that we can connect a one-way level to. This also means we can't connect this
             # level to another one in the tree, as that would use up both entrances.
             def is_valid(level: Level) -> bool:
-                return level != from_level and not level.one_way and not tree.contains(level)
-            hit = 3
+                return not level.one_way and level in unused_levels
+            hit = 4
         else:
             # Do not let levels connect to themselves unless it is the only option.
             def is_valid(level: Level) -> bool:
-                return not tree.contains(level)
-            hit = 4
+                return level in unused_levels
+            hit = 5
 
-        valid_levels = list(filter(is_valid, levels))
-        to_level = random.choice(valid_levels)
-        to_entrance = to_level.connect_to_random()
+        valid_levels = list(filter(is_valid, unfinished_levels + unused_levels))
+        try:
+            to_level = random.choice(valid_levels)
+            current_collectibles += to_level.collectibles
+            to_entrance = to_level.connect_to_random()
+        except:
+            print("Unreachable entrance.")
+            to_level = from_level
+            to_entrance = from_entrance
 
         if(from_level == to_level):
             print(f"Level {from_level.name} connecting to itself. {hit=}")
@@ -88,50 +129,62 @@ def main():
         if to_level not in from_level.connected_levels:
             from_level.connected_levels.append(to_level)
 
+        if to_level not in tree_flat:
+            tree_flat.append(to_level)
+            unused_levels.remove(to_level)
+
         if to_level.name == "CABIN_INTERIOR_A":
-            to_level.connected_levels.append(next(filter(lambda x: x.name == "CABIN_INTERIOR_B", levels)))
+            cabin_interior_b = unused_levels.pop(unused_levels.index("CABIN_INTERIOR_B"))
+            to_level.connected_levels.append(cabin_interior_b)
+            tree_flat.append(cabin_interior_b)
         elif to_level.name == "CABIN_INTERIOR_B":
-            to_level.connected_levels.append(next(filter(lambda x: x.name == "CABIN_INTERIOR_A", levels)))
+            cabin_interior_a = unused_levels.pop(unused_levels.index("CABIN_INTERIOR_A"))
+            to_level.connected_levels.append(cabin_interior_a)
+            tree_flat.append(cabin_interior_a)
         elif to_level.name == "WELL_2":
             to_level.connected_levels.append(sewer_start)
-        #     transition = connect_one_way(sewer_start, levels, tree)
-        #     output_str += str(transition)
-        # elif to_level.one_way:
-        #     transition = connect_one_way(to_level, levels, tree)
-        #     output_str += str(transition)
+            tree_flat.append(sewer_start)
+            transition = connect_one_way(sewer_start, unfinished_levels, current_collectibles)
+            transitions.append(transition)
+        elif to_level.one_way:
+            transition = connect_one_way(to_level, unfinished_levels, current_collectibles)
+            transitions.append(transition)
 
-        if from_level in levels and len(from_level.unused_entrances) == 0:
-            levels.remove(from_level)
-        if to_level != from_level and len(to_level.unused_entrances) == 0:
-            levels.remove(to_level)
-        output_str += str(Transition(from_entrance, to_entrance))
+        
+        if to_level in unfinished_levels and len(to_level.unused_entrances) == 0:
+            unfinished_levels.remove(to_level)
+
+        transitions.append(Transition(from_entrance, to_entrance))
     
     with open("config.txt", "w", encoding="UTF-8") as f:
-        f.write(output_str)
+        for transition in transitions:
+            f.write(str(transition))
     
     print("Done.")
 
     
-def connect_one_way(level: Level, levels: List[Level], tree: Level) -> Transition:
+def connect_one_way(level: Level, unfinished_levels: List[Level], current_collectibles: CollectibleInfo) -> Transition:
     """
     Connect the other end of a one way level back to the tree.
     """
-    from_entrance = level.connect_from_random()
+    from_entrance = level.connect_from_random(current_collectibles)
 
-    def is_valid(to_level: Level) -> bool:
-        return (tree.contains(to_level) and to_level.num_exits() > 0 and not to_level.one_way
-                and level != to_level)
-    valid_levels = list(filter(is_valid, levels))
-    if len(valid_levels) == 0:
-        print("Could not connect back to tree. How?")
-    to_level = random.choice(valid_levels)
-    to_entrance = to_level.connect_to_random()
+    valid_levels = [l for l in unfinished_levels if l.num_exits() > 0]
+    try:
+        to_level = random.choice(valid_levels)
+        to_entrance = to_level.connect_to_random()
+    except:
+        print("Unreachable entrance.")
+        to_level = level
+        to_entrance = from_entrance
 
-    level.connected_levels.append(to_level)
+    if to_level not in level.connected_levels:
+        level.connected_levels.append(to_level)
 
-    # Removing the "from level" happens in the main function.
-    if to_level != level and len(to_level.unused_entrances) == 0:
-        levels.remove(to_level)
+    if level in unfinished_levels and len(level.unused_entrances) == 0:
+        unfinished_levels.remove(level)
+    if to_level in unfinished_levels and len(to_level.unused_entrances) == 0:
+        unfinished_levels.remove(to_level)
     
     return Transition(from_entrance, to_entrance)
 

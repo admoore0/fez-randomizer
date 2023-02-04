@@ -2,24 +2,12 @@
 Class for storing information about levels.
 """
 
-from dataclasses import dataclass
-
 import random
 
 from typing import Any, Dict, List, Optional, Union
 
 from entrance import Entrance, Transition
-
-@dataclass
-class CollectibleInfo:
-    golden_cubes: int = 0
-    anti_cubes: int = 0
-    heart_pieces: int = 0
-    bits: int = 0
-    keys: int = 0
-    owls: int = 0
-    other: str = ""
-
+from collectible_info import CollectibleInfo
 
 class Level:
     """
@@ -37,9 +25,12 @@ class Level:
         self.one_way = one_way
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, Level):
-            raise NotImplementedError
-        return other.name == self.name
+        if isinstance(other, str):
+            return self.name == other
+        elif isinstance(other, Level):
+            return other.name == self.name
+        else:
+            return NotImplemented
 
     def contains(self, level: Union['Level', str], visited: List['Level'] = []) -> bool:
         if self in visited:
@@ -55,7 +46,7 @@ class Level:
                 return True
         return False
     
-    def connect_from_random(self) -> Entrance:
+    def connect_from_random(self, current_collectibles: CollectibleInfo) -> Entrance:
         """
         Start a connection from a random choice of one of this level's entrances. This also removes this entrance from
         the level's unused entrance list.
@@ -64,7 +55,16 @@ class Level:
         """
         if not self.unused_entrances:
             raise ValueError("Level has no unused entrances.")
-        entrance = random.choice(self.unused_entrances)
+
+        valid_entrances = []
+        for entrance in self.unused_entrances:
+            if entrance.can_enter(current_collectibles):
+                valid_entrances.append(entrance)
+
+        if len(valid_entrances) == 0:
+            raise ValueError("No valid entrances found.")
+
+        entrance = random.choice(valid_entrances)
         self.unused_entrances.remove(entrance)
         return entrance
 
@@ -77,7 +77,7 @@ class Level:
         """
         if not self.unused_entrances:
             raise ValueError("Level has no unused entrances.")
-        if self.name in ["OBSERVATORY", "LAVA_XXX", "WELL_B/SEWER_START"]:
+        if self.name in ["OBSERVATORY", "LAVA_XXX", "WELL_B"]:
             entrance = self.unused_entrances[0]
         else:
             valid_entrances = [e for e in self.unused_entrances if e.can_exit()]
@@ -106,6 +106,13 @@ class Level:
                 other_levels_in_group = [l for l in self.connected_levels if l.name != level.name]
                 output += level.pprint(depth + 1, visited + other_levels_in_group + [self])
             return output
+
+    def open_exits(self, current_collectibles: CollectibleInfo) -> int:
+        """
+        The number of currently reachable exits from this level.
+        """
+        open_exits = [e for e in self.unused_entrances if e.can_enter(current_collectibles)]
+        return len(open_exits)
 
     def num_exits(self) -> int:
         open_exits = [e for e in self.unused_entrances if e.can_exit()]
