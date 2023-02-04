@@ -116,7 +116,8 @@ def main():
         valid_levels = list(filter(is_valid, unfinished_levels + unused_levels))
         try:
             to_level = random.choice(valid_levels)
-            current_collectibles += to_level.collectibles
+            if to_level not in tree_flat:
+                current_collectibles += to_level.collectibles
             to_entrance = to_level.connect_to_random()
         except:
             print("Unreachable entrance.")
