@@ -2,6 +2,9 @@
 Randomizer for FEZ.
 """
 
+import argparse
+from datetime import datetime
+import hashlib
 import json
 import os
 import random
@@ -16,6 +19,20 @@ def main():
     """
     Script for randomizing FEZ.
     """
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--seed", required=False, type=int, help="The random seed used for this script.")
+
+    options = parser.parse_args()
+
+    if options.seed:
+        random.seed(options.seed)
+    else:
+        timestamp_as_bytes = int(datetime.now().timestamp()).to_bytes(32, "big")
+        seed = int.from_bytes(hashlib.sha256(timestamp_as_bytes).digest(), "big")
+        print(f"Using seed: {seed}")
+        random.seed(seed)
 
     with open(LEVEL_INFO_FILE, "r") as f:
         levels_json = json.load(f)
