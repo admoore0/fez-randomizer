@@ -20,5 +20,5 @@ folder as the mod (e.g. `Mods/Randomizer`).
 
 ## Current Limitations and Future Work
 
-Right now this only randomizes entrances in Villageville, so it's mostly a tech demo. Future work will involve mapping
-the whole game, as well as randomizing lesser gates and chests, as well as handling key logic.
+This only randomizes "normal" doors. Shortcut doors are left as vanilla. Future version may add the option to randomize
+these as well. In addidtion, I would like to add collectible randomization in future versions.
