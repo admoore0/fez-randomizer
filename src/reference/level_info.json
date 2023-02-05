@@ -570,7 +570,7 @@
         "name": "LIGHTHOUSE",
         "collectibles": {
             "anti_cubes": 1,
-            "bits": 2
+            "bits": 1
         },
         "entrances": [
             {
@@ -582,22 +582,13 @@
             {
                 "volume_id": 4,
                 "viewpoint": "BACK",
-                "original_destination": "LIGHTHOUSE_HOUSE_A"
-            },
-            {
-                "volume_id": 6,
-                "viewpoint": "RIGHT",
-                "original_destination": "LIGHTHOUSE_SPIN"
+                "original_destination": "LIGHTHOUSE_HOUSE_A",
+                "locked": true
             },
             {
                 "volume_id": 7,
                 "viewpoint": "FRONT",
                 "original_destination": "NATURE_HUB"
-            },
-            {
-                "volume_id": 8,
-                "viewpoint": "LEFT",
-                "original_destination": "WATER_TOWER"
             }
         ]
     },
@@ -642,12 +633,30 @@
             {
                 "volume_id": 0,
                 "viewpoint": "FRONT",
-                "original_destination": "LIGHTHOUSE"
+                "original_destination": "LIGHTHOUSE*"
             },
             {
                 "volume_id": 1,
                 "viewpoint": "BACK",
                 "original_destination": "LIGHTHOUSE_HOUSE_A"
+            }
+        ]
+    },
+    {
+        "name": "LIGHTHOUSE*",
+        "collectibles": {
+            "bits": 1
+        },
+        "entrances": [
+            {
+                "volume_id": 6,
+                "viewpoint": "RIGHT",
+                "original_destination": "LIGHTHOUSE_SPIN"
+            },
+            {
+                "volume_id": 8,
+                "viewpoint": "LEFT",
+                "original_destination": "WATER_TOWER"
             }
         ]
     },
@@ -658,7 +667,7 @@
             {
                 "volume_id": 0,
                 "viewpoint": "BACK",
-                "original_destination": "LIGHTHOUSE"
+                "original_destination": "LIGHTHOUSE*"
             },
             {
                 "volume_id": 1,

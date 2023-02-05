@@ -51,7 +51,7 @@ class Transition:
         elif self.dest.level == "CABIN_INTERIOR_B":
             output += "CABIN_INTERIOR_A\n"
         else:
-            output += self.dest.level + '\n'
+            output += self.dest.level.strip("*") + '\n'
         output += str(self.dest.volume_id) + '\n'
         output += self.dest.viewpoint + '\n\n'
         # Dest -> Source transition
@@ -62,7 +62,7 @@ class Transition:
         elif self.source.level == "CABIN_INTERIOR_B":
             output += "CABIN_INTERIOR_A\n"
         else:
-            output += self.source.level + '\n'
+            output += self.source.level.strip("*") + '\n'
         output += str(self.source.volume_id) + '\n'
         output += self.source.viewpoint + '\n\n'
         return output

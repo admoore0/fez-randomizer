@@ -57,7 +57,7 @@ def main():
     # Because there are three one way levels and only 2 loopbacks in the graph, two single-entrance rooms will be
     # unreachable. Ensure these have no collectibles.
     for level in levels:
-        if removed_levels == 4:
+        if removed_levels == 6:
             break
         if not level.collectibles and len(level.entrances) == 1 and level.name not in ["GOMEZ_HOUSE", "CABIN_INTERIOR_A", "CABIN_INTERIOR_B", "WELL_2"]:
             print(f"Removing level: {level.name}")
