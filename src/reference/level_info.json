@@ -2144,6 +2144,11 @@
                 "volume_id": 5,
                 "viewpoint": "LEFT",
                 "original_destination": "EXTRACTOR_A"
+            },
+            {
+                "volume_id": 7,
+                "viewpoint": "BACK",
+                "original_destination": "PIVOT_ONE"
             }
         ]
     },
@@ -2161,11 +2166,6 @@
                 "volume_id": 6,
                 "viewpoint": "RIGHT",
                 "original_destination": "PIVOT_TWO"
-            },
-            {
-                "volume_id": 7,
-                "viewpoint": "BACK",
-                "original_destination": "PIVOT_ONE"
             }
         ]
     },
