@@ -17,6 +17,7 @@ using FezEngine.Tools;
 
 using MonoMod.RuntimeDetour;
 using static Randomizer.LevelChanger;
+using Randomizer;
 
 namespace Randomizer
 {
@@ -56,9 +57,13 @@ namespace Randomizer
 
         public static Fez Fez { get; private set; }
 
+        public static Collectibles collectibles { get; set; }
+
         public LevelChanger(Game game) : base(game)
         {
             Fez = (Fez)game;
+
+            collectibles = new Collectibles();
 
             ParseInputFile();
 
@@ -159,6 +164,11 @@ namespace Randomizer
                 }
             }
 
+            if(prevLevel != "")
+            {
+                collectibles.PrintArtObjects();
+            }
+            
             List<Entrance> matchingEntrances = Entrances.Where(entrance => entrance.LevelFrom == prevLevel && entrance.LevelToOrig == toLevel).ToList();
             Console.WriteLine($"From: {prevLevel}, To: {level_name}");
             if (matchingEntrances.Count > 0)

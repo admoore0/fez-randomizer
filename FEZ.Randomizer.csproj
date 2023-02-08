@@ -65,8 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LevelChanger.cs" />
-    <Compile Include="ClockTowerHelper.cs" />
+    <Compile Include="src\mod\ClockTowerHelper.cs" />
+    <Compile Include="src\mod\LevelChanger.cs" />
+    <Compile Include="src\mod\Collectibles.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\mod\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
