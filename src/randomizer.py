@@ -135,8 +135,16 @@ def main():
         valid_levels = list(filter(is_valid, unfinished_levels + unused_levels))
         try:
             to_level = random.choice(valid_levels)
+            if from_entrance.locked:
+                to_level.is_behind_key = True
+                to_level.key_door_source = from_level.name
+            elif from_level.is_behind_key:
+                to_level.is_behind_key = True
+                to_level.key_door_source = from_level.key_door_source
             if to_level not in tree_flat:
                 current_collectibles += to_level.collectibles
+                if to_level.collectibles.keys > 0 and to_level.is_behind_key:
+                    print(f"Key placed behind key door (source door in {to_level.key_door_source})")
             to_entrance = to_level.connect_to_random()
         except:
             print("Unreachable entrance.")

@@ -23,6 +23,8 @@ class Level:
         self.unreachable_entrances: List[Entrance] = []
         self.connected_levels: List[Level] = []
         self.one_way = one_way
+        self.is_behind_key = False
+        self.key_door_source = ""
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, str):
