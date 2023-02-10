@@ -8,7 +8,7 @@ import hashlib
 import json
 import os
 import random
-from typing import List
+from typing import List, Tuple
 
 from level import CollectibleInfo, Level
 from entrance import Entrance, Transition
@@ -74,15 +74,17 @@ def main():
     # A list of every level currently in the tree.
     tree_flat: List[Level] = [tree]
 
-    # A list of levels currently not in the tree.
-    unused_levels: List[Level] = levels.copy()
-    unused_levels.remove("GOMEZ_HOUSE")
-
     transitions = []
 
     output_str = ""
 
     current_collectibles = CollectibleInfo(anti_cubes=1)
+
+    new_transitions, current_collectibles = populate_hubs(levels, tree_flat, current_collectibles)
+    transitions += new_transitions
+
+    # The unused levels so far.
+    unused_levels = [l for l in levels if l not in tree_flat]
 
     while len([l for l in tree_flat if len(l.unused_entrances) > 0]) > 0:
         #print(tree.pprint())
@@ -206,6 +208,74 @@ def connect_one_way(level: Level, unfinished_levels: List[Level], current_collec
     
     return Transition(from_entrance, to_entrance)
 
+
+def populate_hubs(levels: List[Level], tree_flat: List[Level],
+                  collectibles: CollectibleInfo) -> Tuple[List[Transition], CollectibleInfo]:
+    """
+    Populate a skeleton graph connecting all hubs.
+    """
+    gomez_house = tree_flat[tree_flat.index("GOMEZ_HOUSE")]
+
+    new_collectibles = collectibles
+
+    transitions = []
+    new_transitions, new_collectibles = connect_to_hub(gomez_house, levels, tree_flat, new_collectibles)
+    transitions += new_transitions
+
+    hub_names = ["NATURE_HUB", "INDUSTRIAL_HUB", "SEWER_HUB", "ZU_CITY_RUINS", "GRAVEYARD_GATE"]
+    for _ in range(4):
+        from_hub = random.choice([l for l in tree_flat if l.name in hub_names])
+        new_transitions, new_collectibles = connect_to_hub(from_hub, levels, tree_flat, new_collectibles)
+        transitions += new_transitions
+        
+    
+    return transitions, new_collectibles
+
+
+def connect_to_hub(from_level: Level, levels: List[Level], tree_flat: List[Level],
+                   collectibles: CollectibleInfo) -> Tuple[List[Transition], CollectibleInfo]:
+    """
+    Connect this level to a random remaining hub using 3-8 levels in the process.
+    
+    Rules:
+    - No one-way levels
+    - No entrances that require any collectibles, or that are considered one-way.
+    """
+    assert(from_level in tree_flat)
+    # Get a list of all the hubs that haven't bee used yet.
+    unused_levels = [l for l in levels if l not in tree_flat]
+    hub_names = ["NATURE_HUB", "INDUSTRIAL_HUB", "SEWER_HUB", "ZU_CITY_RUINS", "GRAVEYARD_GATE"]
+    unused_hubs = [l for l in unused_levels if l.name in hub_names]
+    assert(len(unused_hubs) > 0)
+
+    # Choose a random hub and remove it from the list.
+    hub = random.choice(unused_hubs)
+    unused_levels.remove(hub)
+
+    valid_levels = [l for l in unused_levels if l.num_exits() > 1 and not l.one_way and l.name not in hub_names]
+
+    num_rooms = random.randrange(3, 9)
+
+    last_level = from_level
+
+    transitions = []
+
+    for idx in range(num_rooms):
+        from_entrance = last_level.connect_two_way()
+        if idx == num_rooms - 1:
+            to_level = hub
+        else:
+            to_level = random.choice(valid_levels)
+        collectibles += to_level.collectibles
+        last_level.connected_levels.append(to_level)
+        tree_flat.append(to_level)
+        if to_level in valid_levels:
+            valid_levels.remove(to_level)
+        to_entrance = to_level.connect_two_way()
+        transitions.append(Transition(from_entrance, to_entrance))
+        last_level = to_level
+
+    return transitions, collectibles
 
 if __name__ == "__main__":
     main()

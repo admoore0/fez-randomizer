@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-@dataclass
+@dataclass(unsafe_hash=True)
 class CollectibleInfo:
     golden_cubes: int = 0
     anti_cubes: int = 0

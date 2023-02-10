@@ -45,6 +45,23 @@ class Level:
             if connected_level.contains(level, visited + [self]):
                 return True
         return False
+
+    def connect_two_way(self) -> Entrance:
+        """
+        Get an entrance that can both be connected to and from.
+        """
+        if self.one_way:
+            raise ValueError("Can't connect two way in a one-way level.")
+        
+        valid_entrances = [e for e in self.unused_entrances if e.can_exit()]
+        if len(valid_entrances) == 0:
+            print("Warning: could not find a valid entrance for this level, player will emerge from locked door.")
+            entrance = random.choice(self.unused_entrances)
+        else:
+            entrance = random.choice(valid_entrances)
+        self.unused_entrances.remove(entrance)
+        return entrance
+
     
     def connect_from_random(self, current_collectibles: CollectibleInfo) -> Entrance:
         """
