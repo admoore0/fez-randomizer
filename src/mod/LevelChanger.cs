@@ -63,9 +63,9 @@ namespace Randomizer
         {
             Fez = (Fez)game;
 
-            collectibles = new Collectibles();
-
             ParseInputFile();
+
+            collectibles = new Collectibles();
 
             LevelManagerType = Assembly.GetAssembly(typeof(Fez)).GetType("FezGame.Services.GameLevelManager");
             EnterDoorType = Assembly.GetAssembly(typeof(Fez)).GetType("FezGame.Components.Actions.EnterDoor");
@@ -166,7 +166,7 @@ namespace Randomizer
 
             if(prevLevel != "")
             {
-                collectibles.PrintArtObjects();
+                collectibles.PrintArtObjects(LevelManager);
             }
             
             List<Entrance> matchingEntrances = Entrances.Where(entrance => entrance.LevelFrom == prevLevel && entrance.LevelToOrig == toLevel).ToList();
@@ -185,7 +185,7 @@ namespace Randomizer
                 orig(self, levelToNew);
 
                 // For some reason, these levels crash when setting the camera.
-                if(!(entrance.LevelToNew.StartsWith("CABIN_INTERIOR")))
+                if(!(entrance.LevelToNew.StartsWith("CABIN_INTERIOR")) && CameraManager != null)
                 {
                     CameraManager.AlterTransition(StringToView(entrance.DestViewpoint));
                 }
